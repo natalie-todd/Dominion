@@ -32,7 +32,8 @@ public class MongoDB {
     playerCollection.drop();
 
         Game test = GameBuilder.gameBuilder().date(null).gameId("bye").scores(null).setup("hi").build();
-
+        Player testPlayer = new Player("1", "me");
+        System.out.println(testPlayer);
     }
 
 

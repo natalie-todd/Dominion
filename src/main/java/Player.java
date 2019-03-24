@@ -1,37 +1,41 @@
-import org.bson.types.ObjectId;
+import java.util.Objects;
 
 public class Player {
-    private final ObjectId playerForeignKey;
+    private final String playerId;
     private final String name;
 
-    private Player(PlayerBuilder playerBuilder) {
-        this.playerForeignKey = playerBuilder.playerForeignKey;
-        this.name = playerBuilder.name;
+    public Player(String playerId, String name) {
+        this.playerId = playerId;
+        this.name = name;
     }
 
-    public ObjectId getPlayerForeignKey() {
-        return playerForeignKey;
+    public String getPlayerId() {
+        return playerId;
     }
 
     public String getName() {
         return name;
     }
 
-    private static class PlayerBuilder {
-        private ObjectId playerForeignKey;
-        private String name;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Player player = (Player) o;
+        return Objects.equals(playerId, player.playerId) &&
+                Objects.equals(name, player.name);
+    }
 
-        public Player.PlayerBuilder playerForeignKey(ObjectId playerForeignKey) {
-            this.playerForeignKey = playerForeignKey;
-            return this;
-        }
-        public Player.PlayerBuilder name(String name) {
-            this.name = name;
-            return this;
-        }
-        public Player build() {
-//            Player player = new Player(this);
-            return new Player(this);
-        }
+    @Override
+    public int hashCode() {
+        return Objects.hash(playerId, name);
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "playerId='" + playerId + '\'' +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

@@ -8,6 +8,7 @@ public class GameBuilder {
     private List<Score> scores;
     private SimpleDateFormat date;
     private String setup;
+    private String winner;
 
     private static AtomicInteger defaultGameId = new AtomicInteger(0);
 
@@ -37,9 +38,13 @@ public class GameBuilder {
         return this;
     }
 
-
     public GameBuilder setup(String setup) {
         this.setup = setup;
+        return this;
+    }
+
+    public GameBuilder winner(String winner) {
+        this.winner = winner;
         return this;
     }
 
@@ -48,7 +53,8 @@ public class GameBuilder {
                 gameId,
                 scores,
                 date,
-                setup
+                setup,
+                winner
         );
     }
 }

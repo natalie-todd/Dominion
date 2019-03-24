@@ -7,12 +7,14 @@ public class Game {
     private final List<Score> scores;
     private final SimpleDateFormat date;
     private final String setup;
+    private final String winner;
 
-    public Game(String gameId, List<Score> scores, SimpleDateFormat date, String setup) {
+    public Game(String gameId, List<Score> scores, SimpleDateFormat date, String setup, String winner) {
         this.gameId = gameId;
         this.scores = scores;
         this.date = date;
         this.setup = setup;
+        this.winner = winner;
     }
 
     public String getGameId() {
@@ -31,6 +33,10 @@ public class Game {
         return setup;
     }
 
+    public String getWinner() {
+        return winner;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -39,12 +45,13 @@ public class Game {
         return Objects.equals(gameId, game.gameId) &&
                 Objects.equals(scores, game.scores) &&
                 Objects.equals(date, game.date) &&
-                Objects.equals(setup, game.setup);
+                Objects.equals(setup, game.setup) &&
+                Objects.equals(winner, game.winner);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(gameId, scores, date, setup);
+        return Objects.hash(gameId, scores, date, setup, winner);
     }
 
     @Override
@@ -54,6 +61,7 @@ public class Game {
                 ", scores=" + scores +
                 ", date=" + date +
                 ", setup='" + setup + '\'' +
+                ", winner='" + winner + '\'' +
                 '}';
     }
 }
