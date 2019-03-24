@@ -1,25 +1,15 @@
-import com.mongodb.ConnectionString;
-import com.mongodb.client.MongoClients;
+import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;
-
-import com.mongodb.ServerAddress;
-
-import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
-
-import org.bson.Document;
+import com.mongodb.client.MongoDatabase;
+import org.bson.codecs.configuration.CodecRegistry;
+import org.bson.codecs.pojo.PojoCodecProvider;
 
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import com.mongodb.Block;
 
-import com.mongodb.client.MongoCursor;
-import static com.mongodb.client.model.Filters.*;
-import com.mongodb.client.result.DeleteResult;
-import static com.mongodb.client.model.Updates.*;
-import com.mongodb.client.result.UpdateResult;
-import java.util.ArrayList;
-import java.util.List;
+import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
+import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
 public class MongoDB {
     public static void main(String[] args) {
@@ -28,17 +18,22 @@ public class MongoDB {
 
     MongoClient mongoClient = MongoClients.create();
 
-    MongoDatabase database = mongoClient.getDatabase("dominionDB");
+    CodecRegistry pojoCodecRegistry = fromRegistries(MongoClientSettings
+                .getDefaultCodecRegistry(), fromProviders(PojoCodecProvider.builder().automatic(true).build()));
 
-    MongoCollection<Document> gameCollection = database.getCollection("game");
-    MongoCollection<Document> setupCollection = database.getCollection("setup");
-    MongoCollection<Document> playerCollection = database.getCollection("player");
+    MongoDatabase database = mongoClient.getDatabase("dominionDB").withCodecRegistry(pojoCodecRegistry);
 
-    Document firstGame = new Document("playerForeignKey", 1)
-            .append("date", firstDate)
-            .append("id", 1)
-            .append("gameForeignKey", 1);
+    MongoCollection<Game> gameCollection = database.getCollection("game", Game.class);
+    MongoCollection<Setup> setupCollection = database.getCollection("setup", Setup.class);
+    MongoCollection<Player> playerCollection = database.getCollection("player", Player.class);
 
-    gameCollection.insertOne(firstGame);
+    gameCollection.drop();
+    setupCollection.drop();
+    playerCollection.drop();
+
+        Game test = GameBuilder.gameBuilder().date(null).gameId("bye").scores(null).setup("hi").build();
+
     }
+
+
 }
