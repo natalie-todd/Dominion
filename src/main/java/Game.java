@@ -1,15 +1,15 @@
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
 public class Game {
     private final String gameId;
     private final List<Score> scores;
-    private final SimpleDateFormat date;
+    private final LocalDate date;
     private final String setup;
     private final String winner;
 
-    public Game(String gameId, List<Score> scores, SimpleDateFormat date, String setup, String winner) {
+    public Game(String gameId, List<Score> scores, LocalDate date, String setup, String winner) {
         this.gameId = gameId;
         this.scores = scores;
         this.date = date;
@@ -25,7 +25,7 @@ public class Game {
         return scores;
     }
 
-    public SimpleDateFormat getDate() {
+    public LocalDate getDate() {
         return date;
     }
 

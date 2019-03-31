@@ -1,4 +1,4 @@
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -6,7 +6,7 @@ public class GameBuilder {
     //primary key
     private String gameId;
     private List<Score> scores;
-    private SimpleDateFormat date;
+    private LocalDate date;
     private String setup;
     private String winner;
 
@@ -33,7 +33,7 @@ public class GameBuilder {
         return this;
     }
 
-    public GameBuilder date(SimpleDateFormat date) {
+    public GameBuilder date(LocalDate date) {
         this.date = date;
         return this;
     }
